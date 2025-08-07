@@ -3,16 +3,27 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "type": "module",
   "dependencies": {
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "mysql2": "^3.14.3",
     "sequelize": "^6.37.7"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tinag1144/crud-tasks-gonzalez-agostina.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tinag1144/crud-tasks-gonzalez-agostina/issues"
+  },
+  "homepage": "https://github.com/tinag1144/crud-tasks-gonzalez-agostina#readme",
+  "description": ""
 }
