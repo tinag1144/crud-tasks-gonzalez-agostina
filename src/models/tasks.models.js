@@ -23,4 +23,4 @@ export const Task = sequelize.define("Task", {
   }
 });
 
-export default Task;
+
