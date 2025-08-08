@@ -1,6 +1,7 @@
-//primero levantar el servidor 
 import express from "express"; 
-import "dotenv/config" // para que se configure el dotenv 
+import "dotenv/config" 
+import tasksRoutes from "./src/routes/tasks.routes.js";
+import usersRoutes from "./src/routes/users.routes.js";
 import { startDb } from "./src/config/database.js";
 
 
@@ -8,6 +9,9 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json()); 
+
+app.use("/api", tasksRoutes);
+app.use("/api", usersRoutes)
 
 const startServer = async () => {
      await startDb(); 
