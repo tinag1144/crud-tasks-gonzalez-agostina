@@ -1,6 +1,7 @@
 //primero levantar el servidor 
 import express from "express"; 
 import "dotenv/config" // para que se configure el dotenv 
+import { startDb } from "./src/config/database.js";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -13,6 +14,6 @@ app.get("/", (req, res) =>  {
 })
 
 app.listen(PORT, async () => {
-   
+    await startDb();
   console.log(`El server está corriendo en:  http://localhost:${PORT}`);
 });
