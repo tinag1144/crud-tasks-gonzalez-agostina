@@ -2,6 +2,14 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
 export const Documento = sequelize.define("Documento", {
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id"
+      }
+    },
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -23,7 +31,7 @@ export const Documento = sequelize.define("Documento", {
       }
     
 },{
-    tableName: "Document",
+    tableName: "documents",
     timestamps: false
 
 });
