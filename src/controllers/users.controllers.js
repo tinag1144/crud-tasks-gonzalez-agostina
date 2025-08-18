@@ -3,7 +3,13 @@ import {User} from "../models/users.models.js"
 
 export const getAllUsers =  async (req, res) => {
     try {
-        const users = await User.findAll();
+        const users = await User.findAll({
+          include: {
+            model: Task,
+            as: "tasks"
+          }
+        });
+
         res.status(200).json(users);
     } catch (error) {
         res.status(500).json({message: "Error al traer todos los usuarios", error});
@@ -14,7 +20,12 @@ export const getAllUsers =  async (req, res) => {
 export const getUserById = async (req, res) => {
     const { id } = req.params; 
     try{ 
-        const user = await User.findByPk();
+        const user = await User.findByPk(id, {
+          include: {
+            model: Task,
+            as: "tasks"
+          }
+        });
         if (!user ) return res.status(400).json({message: "No se encontró el usuario con el id ingresado"})
         res.status(200).json(user);
     } catch (error) {
