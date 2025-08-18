@@ -26,11 +26,18 @@ export const Task = sequelize.define("Task", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "User",
+      model: User,
       key: "id"
     },
-  }
-});
+  },
+  
+
+},
+{
+  timestamps: false,
+}
+
+);
 
 //RELACIONES
 
@@ -42,6 +49,6 @@ User.hasMany(Task,{
 
 //Una tarea le pertenece a un único usuario
 Task.belongsTo(User,{
-  foreignKey: "users_id", 
+  foreignKey: "author_id", 
   as: "author"
 });
