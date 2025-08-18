@@ -36,14 +36,15 @@ export const getTask = async (req, res) => {
 
 export const createTask = async (req, res) => {
   try {
-    const { title, description, isComplete, userId } = req.body;
+    const { title, description, isComplete, author_id } = req.body;
+    
 
     //validaciones de existencia de datos 
-    if (!title || !description || !userId)
+    if (!title || !description || !author_id)
       return res.status(400).json({ message: "Faltan datos" });
 
     //validar la existencai de un usuario
-    const user = await user.findByPk(userId);
+    const user = await user.findByPk(author_id);
     if (!user) 
       return res.status(400).json({ message: "El usuario ingresado no existe"});
 
