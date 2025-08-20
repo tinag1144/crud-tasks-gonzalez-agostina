@@ -1,5 +1,5 @@
 import { User } from "../models/users.models.js"
-import { Documento } from "../models/documento.models.js";
+import { Documento } from "../models/documento_models.js";
 
 export const createDocumento = async (req, res) => {
         const { user_id, document_number, issue_date, expiration_date } = req.body;
