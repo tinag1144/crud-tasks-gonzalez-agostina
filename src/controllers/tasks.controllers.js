@@ -1,9 +1,9 @@
 import { Task } from "../models/tasks.models.js";
+import { User } from "../models/users.models.js";
 
 export const getTasks = async (req, res) => {
   try {
     const tasks = await Task.findAll({
-
       //con esto podemos traer al usuario asociado usando la relación que ya se definio 
       include: {
         model: User,
@@ -40,11 +40,11 @@ export const createTask = async (req, res) => {
     
 
     //validaciones de existencia de datos 
-    if (!title || !description || !author_id)
+   if (!title || !description || author_id == null || typeof isComplete === "undefined") 
       return res.status(400).json({ message: "Faltan datos" });
 
-    //validar la existencai de un usuario
-    const user = await user.findByPk(author_id);
+    //validar la existencia de un usuario
+    const user = await User.findByPk(author_id);
     if (!user) 
       return res.status(400).json({ message: "El usuario ingresado no existe"});
 

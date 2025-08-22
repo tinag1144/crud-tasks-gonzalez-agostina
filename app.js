@@ -11,6 +11,8 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json()); 
+app.set("json spaces", 2); //para que los json se vean mas prolijos
+
 
 app.use("/api", tasksRoutes);
 app.use("/api", usersRoutes);

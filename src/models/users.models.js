@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 import { Documento } from "./documento_models.js";
 import { Roles } from "./roles_models.js";
+import { user_roles  } from "./user_role_models.js";
 
 export const User = sequelize.define("User", {
   id: {
@@ -17,7 +18,8 @@ export const User = sequelize.define("User", {
   email: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true
+    unique: true,
+    force: true
   },
   password: {
     type: DataTypes.STRING(100),
@@ -28,6 +30,7 @@ export const User = sequelize.define("User", {
   tableName: "users",
   timestamps: false
 });
+
 
 //Relaciones de uno a uno con el documeto 
 
@@ -47,15 +50,16 @@ Documento.belongsTo(User, {
 
 // Un user puede tener varios roles
 User.belongsToMany(Roles, {
-  through: "user_roles", //esto crea ua tabla intermesia para relacionar roles con users 
+  through: user_roles, //esto crea ua tabla intermesia para relacionar roles con users 
   foreignKey: "user_id",  
   otherKey: "role_id",   
   timestamps: false
 });
 
 // Un rol puede pertenecer a varios users
+
 Roles.belongsToMany(User, {
-  through: "user_roles",
+  through: user_roles,
   foreignKey: "role_id",   
   otherKey: "user_id"      
 });

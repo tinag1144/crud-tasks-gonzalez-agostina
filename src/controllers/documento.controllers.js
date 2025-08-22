@@ -2,17 +2,17 @@ import { User } from "../models/users.models.js"
 import { Documento } from "../models/documento_models.js";
 
 export const createDocumento = async (req, res) => {
-        const { user_id, document_number, issue_date, expiration_date } = req.body;
-        if (!user_id || !document_number || !issue_date || !expiration_date) 
+        const { author_id, document_number, issue_date, expiration_date } = req.body;
+        if (!author_id || !document_number || !issue_date || !expiration_date) 
             return res.status(400).json({ message: "faltan campos obligatorios"});
         
         try{
             const user = await User.findByPk(user_id);
-            if (!user_id) 
+            if (!user) 
                 return res.status(400).json({ message: "El usuario que ingresó no se pudo encontrar" })
 
-            const doc = Documento.create({
-                user_id,
+            const doc = await  Documento.create({
+                author_id: user_id,
                 document_number,
                 issue_date,
                 expiration_date
