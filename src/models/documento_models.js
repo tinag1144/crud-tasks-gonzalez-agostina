@@ -8,7 +8,7 @@ export const Documento = sequelize.define("Documento", {
       autoIncrement: true,
       allowNull: false
     },
-    user_id: {
+    author_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

@@ -34,7 +34,8 @@ export const Task = sequelize.define("Task", {
 
 },
 {
-  timestamps: false,
+  timestamps: true,
+  paranoid: true //Con esto, se crea una tabla aparte "deletedAt, hace un soft-delete, los registros son ignorados por las consultas, pero se pueden recuperar "
 }
 
 );

@@ -1,44 +1,11 @@
 import { Roles } from "../models/roles_models.js";
 import {User} from "../models/users.models.js"
 import { Task } from "../models/tasks.models.js";
+import { validationResult } from "express-validator";
 
-export const getAllUsers =  async (req, res) => {
-    try {
-         const users = await User.findAll({
-      include: [
-        {
-          model: Task,
-          as: "tasks",
-        },
-        {
-          model: Roles,
-          through: { attributes: [] } 
-        }
-      ]
-    });
-        res.status(200).json(users);
-    } catch (error) {
-        res.status(500).json({message: "Error al traer todos los usuarios", error});
-    }
-    
-};
+//CRUD
 
-export const getUserById = async (req, res) => {
-    const id = Number(req.params.id);
-    try{ 
-        const user = await User.findByPk(id, {
-          include: {
-            model: Task,
-            as: "tasks"
-          }
-        });
-        if (!user ) return res.status(400).json({message: "No se encontró el usuario con el id ingresado"})
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(500).json({message: "Error al buscar el usuario", error})
-    }
-};
-
+//Create
 export const createUser = async (req, res) => {
     const {name, email, password} = req.body;
     if (!name || !email || !password ){
@@ -56,6 +23,54 @@ export const createUser = async (req, res) => {
   }
 };
 
+//Traer todos los usuarios 
+export const getAllUsers =  async (req, res) => {
+   const errors = validationResult(req)
+              if (!errors.isEmpty()) 
+                  return res
+              .status(400)
+              .json({message: errors.array()});
+
+    try {
+         const users = await User.findAll({
+      include: [
+        {
+          model: Task,
+          as: "tasks",
+          attributes: {exclude: ["createdAt", "updatedAt"]}
+        },
+        {
+          model: Roles,
+          through: { attributes: [] } 
+        }
+      ]
+    });
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({message: "Error al traer todos los usuarios", error});
+    }
+    
+};
+
+//Traer usuarios por id
+export const getUserById = async (req, res) => {
+    const id = Number(req.params.id);
+    try{ 
+        const user = await User.findByPk(id, {
+          include: {
+            model: Task,
+            as: "tasks",
+            attributes: {exclude: ["createdAt", "updatedAt"]}
+          }
+        });
+        if (!user ) return res.status(400).json({message: "No se encontró el usuario con el id ingresado"})
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({message: "Error al buscar el usuario", error})
+    }
+};
+
+//Actualizar usuario
 export const updateUser = async (req, res) => {
     const { id } = req.params;
     const {name, email, password} = req.body;
@@ -76,6 +91,7 @@ export const updateUser = async (req, res) => {
 
 };
 
+//Eliminar usuario
 export const deleteUser = async (req, res) =>{
     const { id } = req.params; 
 

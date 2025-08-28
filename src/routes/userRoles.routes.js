@@ -1,9 +1,12 @@
 import express from "express";
-import { assignRole, getUserRoles } from "../controllers/user.role.controllers";
+import { assignRole, getUserRoles, getRolsById } from "../controllers/user.role.controllers";
 
 const router = express.Router();
 
 router.post("/assign", assignRole);
-router.get("/:user_id", getUserRoles);
+router.get("/rols", getUserRoles);
+router.get("/rols/:id", getRolsById);
+
+
 
 export default router;

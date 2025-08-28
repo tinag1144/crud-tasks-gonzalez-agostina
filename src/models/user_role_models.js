@@ -6,6 +6,7 @@ export const user_roles = sequelize.define("user_roles", {
         type: DataTypes.INTEGER, 
         primaryKey: true,
         autoIncrement: true,
+        unique: true,
     },
 
     user_id: {
@@ -13,7 +14,7 @@ export const user_roles = sequelize.define("user_roles", {
         references: {
             model: "User",
             key: "id",
-        },
+        },  
     },
 
     role_id: {
@@ -24,6 +25,6 @@ export const user_roles = sequelize.define("user_roles", {
         },
     }
 }, {
-    tableName: "user_rules",
+    tableName: "user_roles",
     timestamps: false,
 });

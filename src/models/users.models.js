@@ -9,7 +9,8 @@ export const User = sequelize.define("User", {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    allowNull: false
+    allowNull: false,
+    unique: true,
   },
   name: {
     type: DataTypes.STRING(100),
@@ -37,7 +38,8 @@ export const User = sequelize.define("User", {
 //Un usuario puede tener un documento 
 User.hasOne(Documento, {
   foreignKey: "author_id",
-  as: "documento"
+  as: "documento", 
+  onDelete: "CASCADE" //Eliminación en cascada, si se borra un User, también se borra su documento relacionado 
 });
 
 //Un documento le pertenece a un usuario
