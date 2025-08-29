@@ -7,12 +7,6 @@ import { validationResult } from "express-validator";
 
 //registrar número de documento 
 export const createDocumento = async (req, res) => {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) //con esto primero se valida que no hayan errores, si los errores NO estn vacios, no puede avanzar. 
-            return res
-        .status(400)
-        .json({message: errors.array()}) 
-
         const { author_id, document_number, issue_date, expiration_date } = req.body;
     
         try{
@@ -54,7 +48,7 @@ export const getAllDocumentos = async (req, res) => {
         const docs = await Documento.findAll({
          include: {
             model: User,
-            as: "user" } 
+            as: "users" } 
     });
     res
     .status(200)
