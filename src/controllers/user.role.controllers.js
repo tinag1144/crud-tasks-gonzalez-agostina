@@ -1,7 +1,5 @@
-
 import { user_roles } from "../models/user_role_models.js";
-import { User } from "../models/users.models.js";
-import { Roles } from "../models/roles_models.js";
+
 
 //CRUD
 
@@ -39,10 +37,6 @@ export const getRolsById = async (req, res) => {
     const id = Number(req.params.id);
     try {
             const rols = await user_roles.findByPk(req.params.id);
-            if (!rols)
-                return res
-            .status(400)
-            .json({ message: "No se encontró el id ingresado"});
             res
             .json(rols)
         } catch (error) {
