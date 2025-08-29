@@ -80,16 +80,11 @@ export const getDocumentById = async (req, res) => {
 //actualizar el documento
 
 export const updateDocument = async (req, res) => {
-    const { id } = req.params;
     const { document_number, issue_date, expiration_date } = req.body;
 
     try{
         const documento = await Documento.findByPk(req.params.id)
-        if (!documento)
-            return res
-        .status(404)
-        .json({ message: "no se encontró el documento con ese id "});
-
+        
         await documento.update({
             document_number, 
             issue_date,
@@ -110,11 +105,7 @@ export const updateDocument = async (req, res) => {
 export const deleteDocument = async (req, res) => {
     try {
         const documento = await Documento.findByPk(req.params.id);
-        if (!documento)
-            return res
-        .status(404)
-        .json({ message: "No se encontró el documento que quiere eliminar"});
-
+       
         await documento.destroy() 
         res
         .json({ message: "Se eliminó el documento correctamente" })
