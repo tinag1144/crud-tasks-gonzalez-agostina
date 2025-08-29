@@ -1,6 +1,6 @@
 import { User } from "../models/users.models.js"
 import { Documento } from "../models/documento_models.js";
-import { validationResult } from "express-validator";
+
 
 
 //CRUD completo 
